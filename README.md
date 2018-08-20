@@ -1,2 +1,2 @@
-# satis
-Dependency Manager for PHP
+# happor
+Simple static Composer repository generator
