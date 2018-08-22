@@ -7,7 +7,92 @@ Is a simple static Composer repository generator based on Satis.
 <li>Install happor: <code>composer create-project angelitolm/happor:dev-master</code></li>
 <li>Build a repository: <code>php bin/happor build &lt;configuration-file&gt; &lt;output-dir&gt;</code></li>
 </ul>
-<p>Read the more detailed instructions in the <a href="https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md" rel="nofollow">documentation</a>.</p>
+<h2>Installation</h2>
+<h3>Step 1</h3>
+<p>The first step is to clone it from github</p>
+
+<pre>composer create-project angelitolm/happor --stability=dev --keep-vcs</pre>
+
+<h3>Step 2</h3>
+<p>Once it is finished we will initialize it so that it creates the configuration file (it could be done manually, too, but take advantage of the tool).</p>
+
+<pre>bin/happor init</pre>
+
+<p>We will assign the name and url of our local repository. The URL must have been previously created in a vhost beforehand.</p>
+
+<p><strom>Example:</strong>
+<pre><VirtualHost *:80>
+    ServerAdmin admin@happor.example.com
+    ServerName happor.example.com
+    ErrorLog /var/log/error-happor.log
+    LogLevel warn
+    CustomLog /var/log/access-happor.log combined
+    DocumentRoot /var/www/html/happor/web
+    <Directory /var/www/html/happor/web>
+       DirectoryIndex index.html index.php
+       Options Indexes FollowSymLinks MultiViews
+       AllowOverride all
+       Order deny,allow
+       Deny from all
+       Allow from all
+    </Directory>
+</VirtualHost></pre>
+
+<p>When initializing it, a file named happor.json has been created with this content:</p>
+
+<pre>{
+    "name": "Happor, The little PHP Package Repository",
+    "homepage": "http://happor.example.com",
+    "repositories": [],
+    "require-all": true
+}</pre>
+
+
+<h3>Step 3</h3>
+<p>Now it's time to add modules that are from remote repositories, which are those that will be served from Happor instead of using the original remote repository.</p>
+
+<p>For that, while it can also be done manually, we will continue with the console of Happor. For the example I have created two modules (only the basic structure) that have their private repositories in Github).</p>
+
+<pre>bin/happor add git@github.com:symfony/symfony-standard.git</pre>
+
+<p><strom>Manual example:</strom></p>
+We must edit the file happor.json and add the following:
+
+<pre>{
+    "type": "vcs",
+    "url": "git@github.com:symfony/symfony-standard.git"
+}</pre>
+
+<p>Staying as follows:</p>
+
+<pre>{
+    "name": "Happor, The little PHP Package Repository",
+    "homepage": "http://happor.example.com",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:symfony/symfony-standard.git"
+        }
+    ],
+    "require-all": true
+}</pre>
+
+<h3>Step 4</h3>
+<p>Assuming we have added all the repositories that we needed, now we have to do our first build. For this, we execute:</p>
+
+<pre>bin/happor build happor.json web -n</pre>
+
+<p>To understand the command:</p>
+<ul>
+    <li>bin/happor: is the console.</li>
+    <li>build: is the command that we are wanting to execute.</li>
+    <li>happor.json: the name of the file from which the parameters will be taken.</li>
+    <li>web: the directory in which the build and the web interface will be created.</li>
+    <li>-n: we use the parameter to take credentials of the user who is executing the command (the ssh keys, for example, to access the repositories added).</li>
+</ul>
+
+<p>Now we can navigate with our browser our instance of Happor and we would have the packages that we had added.</p>
+http://happor.example.com
 <h2><a id="user-content-run-as-docker-container" class="anchor" aria-hidden="true" href="#run-as-docker-container"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Run as Docker container</h2>
 <p>Pull the image:</p>
 <div class="highlight highlight-source-shell"><pre>docker pull composer/happor</pre></div>
