@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow" />
+
+    <title>{{ name }}, The little PHP Package Repository</title>
+
+    <style type="text/css">
+        {% include 'assets/bootstrap.min.css' %}
+        {% include 'assets/happor.css' %}
+        {% include 'assets/others/bootstrap.css' %}
+        {% include 'assets/others/bootstrap-theme.css' %}
+        {% include 'assets/others/main.css' %}
+        {% include 'assets/others/jackedup.css' %}
+        {% include 'assets/jPages/jPages.css' %}
+    </style>
+</head>
+
+<body>
+
+<section class="wrap">
+
+    <header class="navbar-wrapper navbar-fixed-top">
+            <nav class="container">
+                <div class="navbar" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h1 class="navbar-brand"><a href="index.html">Happor</a> <em class="hidden-sm hidden-xs">The little PHP Package Repository</em></h1>
+                    </div>
+                </div>
+            </nav>
+    </header>
+
+<section class="wrapper wrapper-search">
+    <div class="container with-description">
+
+    <form id="search-form" name="search_query">
+            <!-- <div class="form-group"> -->
+            <div class="sortable row">
+                <div class="col-xs-12 js-search-field-wrapper col-md-9">
+                <input
+                    id="search"
+                    class="form-control ais-search-box--input"
+                    placeholder="Filter packages"
+                    autocomplete="off"
+                    autofocus autocapitalize="off" autocorrect="off" role="textbox" spellcheck="false" value="" type="search">
+                </div>
+            </div>
+    </form>
+        <div class="row">
+            <div class="col-sm-9 hidden-xs">
+                <img src="logo-small-happor.png" class="logo">
+                <p>Happor is a <a href="https://getcomposer.org/">Composer</a> repository generator.</p>
+            </div>
+        </div>    
+    </div>
+</section>
+
+<div class="container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    {% if name %}{{ name }}{% else %}Composer repository{% endif %}
+                    {% if description %}<small>{{ description|raw }}</small>{% endif %}
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse in">
+                <p class="navbar-text navbar-right">
+                    <small class="text-muted" title="{{ "now"|date(constant('\DateTime::COOKIE')) }}">
+                        Last updated: <time datetime="{{ "now"|date(constant('\DateTime::RFC3339')) }}">{{ "now"|date('l, d M Y H:i:s T') }}</time>
+                    </small>
+                </p>
+            </div>
+        </div>
+    </nav>
+
+    <pre><code>{
+  "repositories": [{
+    "type": "composer",
+    "url": "{{ url }}"
+  }]
+}</code></pre>
+    <p class="text-right">
+        <em>Add this Happor repository to your <kbd>composer.json</kbd></em>
+    </p>
+
+    <div class="page-header">
+        <h1>Packages</h1>
+    </div>
+
+
+    <div id="package-list" class="package-list" data-buttons-class='default btn-sm btn-outline' data-pagination="true">
+        {% for name, package in packages %}{% include 'package.html.twig' %}{% endfor %}
+    </div>
+
+    <div style="text-align: center !important;">
+       <div class="holder"></div>
+    </div>
+
+    <div id="ft">
+        <p class="text-center"><small>This Composer repository is powered by <a href="https://github.com/angelitolm/happor">Happor</a> {{ constant('Composer\\Happor\\Happor::VERSION') }}</small></p>
+        <p class="text-center"><small>Developed by <a href="mailto:angelitolabm@gmail.com">Angel Labrada Mass&oacute;</a></small></p>
+    </div>
+</div>
+
+</section>
+
+<script type="text/javascript">
+{% include 'assets/jquery.slim.min.js' %}
+{% include 'assets/bootstrap.min.js' %}
+{% include 'assets/moment.min.js' %}
+{% include 'assets/jPages/jquery-1.8.2.min.js' %}
+{% include 'assets/jPages/jPages.js' %}
+
+
+  /* when document is ready */
+  $(function(){
+    /* initiate the plugin */
+    $("div.holder").jPages({
+      containerID  : "package-list",
+      perPage      : 10,
+      startPage    : 1,
+      startRange   : 1,
+      midRange     : 5,
+      endRange     : 1
+    });
+
+  });
+
+
+
+function momentize(elements) {
+    elements.each(function () {
+        var element = $(this);
+        element.text(moment(element.attr('datetime')).fromNow());
+    });
+}
+
+$(function () {
+    var input = $('input#search');
+    var list = $('div#package-list');
+    var packages = list.find('h3');
+    var timeElements = $('time');
+    var inputTimeout;
+
+    var updateTimeElements = function () {
+        momentize(timeElements);
+    };
+
+    var readHash = function () {
+        var hash = window.decodeURIComponent(window.location.hash.substr(1));
+        if (hash.length > 0) {
+            input.val(hash);
+            filterPackages();
+        }
+    };
+
+    var updateHash = function () {
+        window.location.hash = window.encodeURIComponent(input.val());
+    };
+
+    var filterPackages = function () {
+        var needle = input.val().toLowerCase();
+
+        list.hide();
+
+        packages.each(function () {
+            $(this).closest('div.panel').toggle(
+                $(this).text().toLowerCase().indexOf(needle) !== -1
+            );
+        });
+
+        list.show();
+    };
+
+    input.keyup(function () {
+        updateHash();
+        window.clearTimeout(inputTimeout);
+        inputTimeout = window.setTimeout(filterPackages, 350);
+    });
+
+    $(window).keyup(function (event) {
+        if (event.keyCode === 27) { // "ESC" keyCode
+            input.val('');
+            filterPackages();
+        }
+    });
+
+    readHash();
+    updateTimeElements();
+    window.setInterval(updateTimeElements, 5000);
+});
+</script>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="octicon-link" viewBox="0 0 16 16">
+        <path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+    </symbol>
+</svg>
+</body>
+</html>
