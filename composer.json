@@ -1,15 +1,11 @@
 {
-    "name": "composer/happor",
+    "name": "composer/satis",
     "description": "Simple Repository Generator",
     "keywords": ["package", "repository", "generator", "static", "composer"],
-    "homepage": "https://github.com/angelitolm/happor",
+    "homepage": "https://github.com/composer/satis",
     "type": "library",
     "license": "MIT",
     "authors": [{
-        "name": "Angel Labrada",
-        "email": "angelitolabm@gmail.com",
-        "homepage": "http://seld.be"
-    },{
         "name": "Jordi Boggiano",
         "email": "j.boggiano@seld.be",
         "homepage": "http://seld.be"
@@ -19,7 +15,10 @@
         "homepage": "http://www.naderman.de"
     }],
     "support": {
-        "issues": "https://github.com/angelito/happor",
+        "issues": "https://github.com/composer/satis",
+        "source": "https://github.com/composer/satis",
+        "forum": "https://gitter.com/composer/satis",
+        "irc": "irc://freenode.net/composer"
     },
     "bin": ["bin/satis"],
     "require": {
@@ -29,7 +28,7 @@
         "symfony/console": "^2.1 || ^3.0.4 || ^4.0"
     },
     "autoload": {
-        "psr-4": { "Composer\\Happor\\": "src" }
+        "psr-4": { "Composer\\Satis\\": "src" }
     },
     "require-dev": {
         "phpunit/phpunit": "^6.4",
@@ -38,7 +37,7 @@
         "friendsofphp/php-cs-fixer": "^2.11"
     },
     "autoload-dev": {
-        "psr-4": { "Composer\\Happor\\": "tests" }
+        "psr-4": { "Composer\\Satis\\": "tests" }
     },
     "config": {
         "platform": {
