@@ -56,7 +56,7 @@ Is a simple static Composer repository generator based on Satis.
 <pre>bin/happor add git@github.com:symfony/symfony-standard.git</pre>
 
 <p><strom>Manual example:</strom></p>
-We must edit the file happor.json and add the following:
+<p>We must edit the file happor.json and add the following:</p>
 
 <pre>{
     "type": "vcs",
