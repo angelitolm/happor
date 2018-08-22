@@ -20,7 +20,7 @@ Is a simple static Composer repository generator based on Satis.
 
 <p>We will assign the name and url of our local repository. The URL must have been previously created in a vhost beforehand.</p>
 
-<p><strom>Example:</strong>
+<p><strong>Example:</strong>
 <pre><VirtualHost *:80>
     ServerAdmin admin@happor.example.com
     ServerName happor.example.com
@@ -55,7 +55,7 @@ Is a simple static Composer repository generator based on Satis.
 
 <pre>bin/happor add git@github.com:symfony/symfony-standard.git</pre>
 
-<p><strom>Manual example:</strom></p>
+<p><strong>Manual example:</strong></p>
 <p>We must edit the file happor.json and add the following:</p>
 
 <pre>{
@@ -84,11 +84,11 @@ Is a simple static Composer repository generator based on Satis.
 
 <p>To understand the command:</p>
 <ul>
-    <li>bin/happor: is the console.</li>
-    <li>build: is the command that we are wanting to execute.</li>
-    <li>happor.json: the name of the file from which the parameters will be taken.</li>
-    <li>web: the directory in which the build and the web interface will be created.</li>
-    <li>-n: we use the parameter to take credentials of the user who is executing the command (the ssh keys, for example, to access the repositories added).</li>
+    <li><strong>bin/happor:</strong> is the console.</li>
+    <li><strong>build:</strong> is the command that we are wanting to execute.</li>
+    <li><strong>happor.json:</strong> the name of the file from which the parameters will be taken.</li>
+    <li><strong>web:</strong> the directory in which the build and the web interface will be created.</li>
+    <li><strong>-n:</strong> we use the parameter to take credentials of the user who is executing the command (the ssh keys, for example, to access the repositories added).</li>
 </ul>
 
 <p>Now we can navigate with our browser our instance of Happor and we would have the packages that we had added.</p>
