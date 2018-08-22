@@ -1,5 +1,5 @@
 {
-    "name": "angelitolm/happor",
+    "name": "composer/happor",
     "description": "Simple Repository Generator",
     "keywords": ["package", "repository", "generator", "static", "composer"],
     "homepage": "https://github.com/angelitolm/happor",
