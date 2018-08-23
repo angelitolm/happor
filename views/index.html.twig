@@ -34,7 +34,13 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <h1 class="navbar-brand"><a href="index.html">Happor</a> <em class="hidden-sm hidden-xs">The little PHP Package Repository</em></h1>
+                        <h1 class="navbar-brand">
+                        <a class="navbar-brand" href="/">
+                           {% if name %}{{ name }}{% else %}Happor <em class="hidden-sm hidden-xs">The little PHP Package Repository</em>{% endif %}
+                           {% if description %}<small>{{ description|raw }}</small>{% endif %}
+                        </a>
+                        {#<a href="index.html">Happor</a> <em class="hidden-sm hidden-xs">The little PHP Package Repository</em>#}
+                        </h1>
                     </div>
                 </div>
             </nav>
@@ -69,10 +75,7 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">
-                    {% if name %}{{ name }}{% else %}Composer repository{% endif %}
-                    {% if description %}<small>{{ description|raw }}</small>{% endif %}
-                </a>
+                
             </div>
 
             <div class="collapse navbar-collapse in">
