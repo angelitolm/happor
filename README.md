@@ -1,7 +1,7 @@
 # Happor
 Is the little Composer repository generator based on Satis.
 
-![Happor](https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/50467899_565663080569568_7706252294982991872_n.png?_nc_cat=109&_nc_ht=scontent-atl3-1.xx&oh=7e1f7e398c9707ad2801d09d946128c2&oe=5CB4F4C6)
+![Happor](https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/50467899_565663080569568_7706252294982991872_n.png?_nc_cat=109&_nc_oc=AQm7iGYrJVPzwdV1v-iQlfrVy8uWAU2a45yVi8YkL-QxTr4EO4TSbT8zAm8DrFXBD0A&_nc_ht=scontent-mia3-1.xx&oh=9e61c15f50075e8e2022ee79fdc80bdd&oe=5D7AB5C6)
 
 <p><a href="https://travis-ci.org/angelitolm/happor" rel="nofollow"><img src="https://camo.githubusercontent.com/770aad8227e550bb1958b38bce5430dea32f4bb9/68747470733a2f2f7472617669732d63692e6f72672f636f6d706f7365722f73617469732e7376673f6272616e63683d6d6173746572" alt="Build Status" data-canonical-src="https://travis-ci.org/angelitolm/happor.svg?branch=master" style="max-width:100%;"></a>
 <a href="https://codecov.io/gh/angelitolm/happor" rel="nofollow"><img src="https://camo.githubusercontent.com/98acb1573f5e05041077f2e102ced22a64194b63/68747470733a2f2f636f6465636f762e696f2f67682f636f6d706f7365722f73617469732f6272616e63682f6d61737465722f67726170682f62616467652e737667" alt="codecov" data-canonical-src="https://codecov.io/gh/angelitolm/happor/branch/master/graph/badge.svg" style="max-width:100%;"></a></p>
